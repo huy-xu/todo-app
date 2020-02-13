@@ -8,8 +8,8 @@ import thunkMiddleware from 'redux-thunk';
 
 const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
 
-store.subscribe(() => {
-  console.log(store.getState().addNoteForm);
-})
+// store.subscribe(() => {
+//   console.log(store.getState().addNoteForm);
+// })
 
 export default store;

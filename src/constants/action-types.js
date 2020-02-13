@@ -1,6 +1,7 @@
 export const UUID = 'X8ZDwfuXI2MJ12zg8d9Y2oZhUY02';
 export const CHANGE_SIGN_IN_STATE = 'CHANGE_SIGN_IN_STATE';
 
+export const UPDATE_NOTE_FORM = 'UPDATE_NOTE_FORM';
 export const ADD_CHECK_ITEM = 'ADD_CHECK_ITEM';
 export const ADD_NOTE_SUCCESS = 'ADD_NOTE_SUCCESS';
 export const ADD_NOTE_ERROR = 'ADD_NOTE_ERROR';

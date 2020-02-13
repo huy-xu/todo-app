@@ -1,24 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { addCheckItem, addNote } from '../../redux/actions/addNoteForm';
+import { updateNoteForm, addCheckItem, addNote } from '../../redux/actions/addNoteForm';
 
 import CheckItem from './CheckItem';
 
 class AddNoteForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      title: '',
-      content: '',
-      checkList: this.props.checkList
-    }
-  }
-  
-  onChange = (event) => {
+  handleChange = (event) => {
     const { name, value } = event.target;
-    this.setState({
-      [name]: value
-    });
+    this.props.updateNoteForm({ name: name, value: value });
   }
 
   handleAddNote = () => {
@@ -28,24 +17,19 @@ class AddNoteForm extends Component {
       checkList: { ...this.props.checkList }
     }
 
-    if (this.state.title === '' && this.state.content === '') {
-      note.title = this.state.checkList[0].content;
-    } else if (this.state.title === '') {
-      note.title = this.state.content;
-      note.content = this.state.content;
+    if (this.props.title === '') {
+      note.title = this.props.content;
+      note.content = this.props.content;
     } else {
-      note = { ...this.state };
+      note.title = this.props.title;
+      note.content = this.props.content;
     }
-    console.log(note);
-    //this.props.addNote({ ...this.state, checkList: { ...this.props.checkList } });
-    this.setState({
-      title: '',
-      content: ''
-    });
+    this.props.addNote({ ...this.state, checkList: { ...this.props.checkList } });
   }
 
   render() {
-    const checkList = Object.entries(this.props.checkList).map(value => ({ id: value[0], checkItem: value[1] })); //convert object to array
+    const { title, content } = this.props;
+    const checkList = Object.entries(this.props.checkList).map(value => ({ id: value[0], checkItem: value[1] })); //convert object to array   
     return (
       <form className="col-3">
         <div className="card border-success mb-3" style={{ maxWidth: '18rem' }}>
@@ -53,9 +37,20 @@ class AddNoteForm extends Component {
           <div className="card-body text-success">
             <div className="form-group">
               <label htmlFor="title">Title</label>
-              <input type="text" name="title" id="title" className="form-control" placeholder="Enter title" onChange={this.onChange} />
+              <input 
+                type="text" 
+                name="title"  
+                className="form-control" 
+                placeholder="Enter title" 
+                onChange={this.handleChange} 
+              />
               <label className="mt-3" htmlFor="content">Content</label>
-              <textarea type="text" name="content" id="content" className="form-control" placeholder="Enter content" onChange={this.onChange} />
+              <textarea type="text" 
+                name="content"  
+                className="form-control" 
+                placeholder="Enter content" 
+                onChange={this.handleChange} 
+              />
               <label className="mt-3" htmlFor="noteChecklist">Checklist</label>
               <button type="button" className="btn btn-light btn-sm ml-2 mb-2" onClick={() => this.props.addCheckItem({ [checkList.length]: {} })}>
                 <i className="fa fa-plus-square" />
@@ -67,7 +62,7 @@ class AddNoteForm extends Component {
               className="btn btn-success btn-block" 
               onClick={this.handleAddNote} 
               value="Add"
-              disabled={(this.state.title === '' && this.state.content === '') ? true : false}
+              disabled={(title === '' && content === '') ? true : false}
             />
           </div>
         </div>
@@ -78,12 +73,15 @@ class AddNoteForm extends Component {
 
 const mapStateToProps = (state) => {
   return {
+    title: state.addNoteForm.title,
+    content: state.addNoteForm.content,
     checkList: state.addNoteForm.checkList
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    updateNoteForm: (payload) => dispatch(updateNoteForm(payload)),
     addNote: (note) => dispatch(addNote(note)),
     addCheckItem: (checkItem) => dispatch(addCheckItem(checkItem))
   }

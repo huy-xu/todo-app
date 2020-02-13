@@ -2,9 +2,15 @@ import {
   UUID,
   ADD_CHECK_ITEM,
   ADD_NOTE_SUCCESS,
-  ADD_NOTE_ERROR
+  ADD_NOTE_ERROR,
+  UPDATE_NOTE_FORM
 } from '../../constants/action-types';
 import { database } from '../../firebase/firebase';
+
+export const updateNoteForm = (payload) => ({
+  type: UPDATE_NOTE_FORM,
+  payload
+});
 
 export const addCheckItem = (checkItem) => ({
   type: ADD_CHECK_ITEM,
