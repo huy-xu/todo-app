@@ -3,7 +3,10 @@ import {
   GET_NOTE_LIST_PENDING,
   GET_NOTE_LIST_SUCCESS,
   CHANGE_COMPLETE_STATE,
-  DELETE_NOTE
+  DELETE_NOTE,
+  EDIT_NOTE,
+  EDIT_CHECK_ITEM,
+  UPDATE_NOTE
 } from '../../constants/action-types';
 import { database } from '../../firebase/firebase';
 
@@ -29,5 +32,23 @@ export const deleteNote = (noteId) => {
     database.child(UUID + '/' + noteId + '/')
       .remove()
       .then(() => dispatch({ type: DELETE_NOTE }));
+  }
+};
+
+export const editNote = (payload) => ({
+  type: EDIT_NOTE,
+  payload
+});
+
+export const editCheckItem = (payload) => ({
+  type: EDIT_CHECK_ITEM,
+  payload
+});
+
+export const updateNote = (payload) => {
+  return (dispatch) => {
+    database.child(UUID + '/' + payload.noteId)
+      .update(payload.note)
+      .then(() => dispatch({ type: UPDATE_NOTE }));
   }
 };

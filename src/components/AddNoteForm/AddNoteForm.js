@@ -10,21 +10,30 @@ class AddNoteForm extends Component {
     this.props.updateNoteForm({ name: name, value: value });
   }
 
-  handleAddNote = () => {
+  handleAddNote = (checkList) => {
+    const { title, content } = this.props;
     let note = {
-      title: '',
-      content: '',
+      title: title,
+      content: content,
       checkList: { ...this.props.checkList }
     }
 
-    if (this.props.title === '') {
-      note.title = this.props.content;
-      note.content = this.props.content;
-    } else {
-      note.title = this.props.title;
-      note.content = this.props.content;
+    if (title === '' && content === '') {
+      for (let value of checkList) {
+        if (Object.keys(value.checkItem).length) {
+          note.title = value.checkItem.content;
+          break;
+        }
+      }
+    } else if (title === '') {
+      note.title = content;
     }
-    this.props.addNote({ ...this.state, checkList: { ...this.props.checkList } });
+
+    this.props.addNote(note);
+  }
+
+  isCheckListEmpty = (checkList) => {
+    return !checkList.some(value => Object.keys(value.checkItem).length);
   }
 
   render() {
@@ -32,7 +41,7 @@ class AddNoteForm extends Component {
     const checkList = Object.entries(this.props.checkList).map(value => ({ id: value[0], checkItem: value[1] })); //convert object to array   
     return (
       <form className="col-3">
-        <div className="card border-success mb-3" style={{ maxWidth: '18rem' }}>
+        <div className="card border-success position-fixed">
           <div className="card-header text-center">Add note</div>
           <div className="card-body text-success">
             <div className="form-group">
@@ -60,9 +69,9 @@ class AddNoteForm extends Component {
             <input 
               type="reset"
               className="btn btn-success btn-block" 
-              onClick={this.handleAddNote} 
+              onClick={() => this.handleAddNote(checkList)} 
               value="Add"
-              disabled={(title === '' && content === '') ? true : false}
+              disabled={(title === '' && content === '' && this.isCheckListEmpty(checkList)) ? true : false}
             />
           </div>
         </div>

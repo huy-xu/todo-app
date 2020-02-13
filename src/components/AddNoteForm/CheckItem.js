@@ -7,21 +7,26 @@ class CheckItem extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      content: '',
       isComplete: false
     }
   }
 
-  changeCompleteStatus = (id) => {
-    this.props.addCheckItem({ [id]: { ...this.state, isComplete: !this.state.isComplete } })
+  changeCompleteStatus = () => {
+    const { content } = this.props;
+    if (typeof(content) === 'undefined' || content === '') {
+      this.props.addCheckItem({ [this.props.id]: {} });
+    } else {
+      this.props.addCheckItem({ [this.props.id]: { content: content, isComplete: !this.state.isComplete } })
+    }    
     this.setState({ isComplete: !this.state.isComplete });
   }
 
-  onChange = (event) => {
-    const { value } = event.target;
-    this.setState({
-      content: value
-    });
+  handleAddCheckItem = (event) => {
+    if (event.target.value === '') {
+      this.props.addCheckItem({ [this.props.id]: {} });
+    } else {
+      this.props.addCheckItem({ [this.props.id]: { ...this.state, content: event.target.value } })
+    }
   }
 
   render() {
@@ -30,7 +35,7 @@ class CheckItem extends Component {
       <div className="input-group mb-1">
         <div className="input-group-prepend">
           <div className="input-group-text">
-            <input type="checkbox" onChange={() => this.changeCompleteStatus(id)} />
+            <input type="checkbox" onChange={this.changeCompleteStatus} />
           </div>
         </div>
         <input
@@ -38,8 +43,7 @@ class CheckItem extends Component {
           className={this.state.isComplete ? "form-control strike-through-add-note-form" : "form-control"}
           id={id}
           defaultValue={content}
-          onChange={this.onChange}
-          onBlur={() => this.props.addCheckItem({ [id]: { ...this.state, content: this.state.content } })}
+          onChange={this.handleAddCheckItem}
         />
       </div>
     );
