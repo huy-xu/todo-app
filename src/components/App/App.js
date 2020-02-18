@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import * as ROUTES from '../../constants/routes';
 
 import Navigation from '../Navigation/Navigation';
+import Notify from '../Notify/Notify';
 import LandingPage from '../LandingPage/LandingPage';
 import HomePage from '../HomePage/HomePage';
 import SignInPage from '../SignInPage/SignInPage';
@@ -128,6 +129,7 @@ class App extends Component {
         <div className="App">
           <Particles className="particles" params={particlesOptions} />
           <Navigation />
+          <Notify />
           <Switch>
             <Route exact path={ROUTES.LANDING} component={LandingPage} />
             <Route path={ROUTES.HOME} component={HomePage} />

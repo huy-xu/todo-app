@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { updateNoteForm, addCheckItem, addNote } from '../../redux/actions/addNoteForm';
+import { notifyOn } from '../../redux/actions/notify';
 
 import CheckItem from './CheckItem';
 
@@ -30,6 +31,7 @@ class AddNoteForm extends Component {
     }
 
     this.props.addNote(note);
+    this.props.notifyOn("Add note successfully")
   }
 
   isCheckListEmpty = (checkList) => {
@@ -92,7 +94,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     updateNoteForm: (payload) => dispatch(updateNoteForm(payload)),
     addNote: (note) => dispatch(addNote(note)),
-    addCheckItem: (checkItem) => dispatch(addCheckItem(checkItem))
+    addCheckItem: (checkItem) => dispatch(addCheckItem(checkItem)),
+    notifyOn: (content) => dispatch(notifyOn(content))
   }
 }
 

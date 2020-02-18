@@ -3,6 +3,7 @@ import CheckItem from './CheckItem';
 
 import { connect } from 'react-redux';
 import { deleteNote, editNote, updateNote } from '../../redux/actions/noteList';
+import { notifyOn } from '../../redux/actions/notify';
 import { getNoteById } from '../../redux/selectors';
 
 export class Note extends Component {
@@ -13,6 +14,11 @@ export class Note extends Component {
     }
   }
 
+  handleDeleteNote = () => {
+    this.props.deleteNote(this.props.id);
+    this.props.notifyOn("Delete note successfully");
+  }
+
   handleEditNote = (event) => {
     const { name, value } = event.target;
     this.props.editNote({ noteId: this.props.id, name: name, value: value });
@@ -20,6 +26,7 @@ export class Note extends Component {
 
   handleUpdateNote = () => {
     this.props.updateNote({ noteId: this.props.id, note: this.props.note });
+    this.props.notifyOn("Edit note successfully");
     this.setState({ isEdit: !this.state.isEdit });
   }
   
@@ -44,7 +51,7 @@ export class Note extends Component {
                 </a>
             }            
           </h5>
-          <button className="btn btn-danger float-right" onClick={() => this.props.deleteNote(id)}><i className="fa fa-trash"/></button>
+          <button className="btn btn-danger float-right" onClick={this.handleDeleteNote}><i className="fa fa-trash"/></button>
         </div>
         <div id={id} className="collapse in" role="tabpanel">
           <div className="card-body">
@@ -87,7 +94,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     deleteNote: (noteId) => dispatch(deleteNote(noteId)),
     editNote: (payload) => dispatch(editNote(payload)),
-    updateNote: (payload) => dispatch(updateNote(payload))
+    updateNote: (payload) => dispatch(updateNote(payload)),
+    notifyOn: (content) => dispatch(notifyOn(content))
   }
 }
 

@@ -13,3 +13,6 @@ export const DELETE_NOTE = 'DELETE_NOTE';
 export const EDIT_NOTE = 'EDIT_NOTE';
 export const EDIT_CHECK_ITEM = 'EDIT_CHECK_ITEM';
 export const UPDATE_NOTE = 'UPDATE_NOTE';
+
+export const NOTIFY_ON = 'NOTIFY_ON';
+export const NOTIFY_OFF = 'NOTIFY_OFF';
