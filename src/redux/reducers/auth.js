@@ -6,16 +6,16 @@ import {
 
 const initialState = {
   authenticated: false,
-  error: ''
+  error: false
 }
 
 export const auth = (state = initialState, action = {}) => {
   switch (action.type) {
     case AUTH_SUCCESS:
-      return { ...state, authenticated: true }
+      return { ...state, authenticated: true, error: false }
 
     case AUTH_ERROR:
-      return { ...state, error: action.error }
+      return { ...state, error: true }
 
     case SIGN_OUT:
       return initialState;
