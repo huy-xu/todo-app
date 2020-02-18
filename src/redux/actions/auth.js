@@ -9,7 +9,7 @@ export const signUp = (user) => {
   return (dispatch) => {
     firebaseAuth.createUserWithEmailAndPassword(user.email, user.password)
       .then(() => dispatch({ type: AUTH_SUCCESS }))
-      .catch((error) => dispatch({ type: AUTH_ERROR, error: error.message }));
+      .catch(() => dispatch({ type: AUTH_ERROR }));
   }
 };
 
@@ -17,7 +17,7 @@ export const signIn = (user) => {
   return (dispatch) => {
     firebaseAuth.signInWithEmailAndPassword(user.email, user.password)
       .then(() => dispatch({ type: AUTH_SUCCESS }))
-      .catch((error) => dispatch({ type: AUTH_ERROR, error: error.message }));
+      .catch(() => dispatch({ type: AUTH_ERROR }));
   }
 }
 
