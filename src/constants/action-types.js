@@ -1,5 +1,6 @@
-export const UUID = 'X8ZDwfuXI2MJ12zg8d9Y2oZhUY02';
-export const CHANGE_SIGN_IN_STATE = 'CHANGE_SIGN_IN_STATE';
+export const AUTH_SUCCESS = 'AUTH_SUCCESS';
+export const AUTH_ERROR = 'AUTH_ERROR';
+export const SIGN_OUT ='SIGN_OUT';
 
 export const UPDATE_NOTE_FORM = 'UPDATE_NOTE_FORM';
 export const ADD_CHECK_ITEM = 'ADD_CHECK_ITEM';

@@ -1,0 +1,26 @@
+.LandingPage {
+  position: relative;
+  height: calc(100vh - 56px);
+}
+
+.bg-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 80%;
+  border: 3px solid #f1f1f1;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
+  transform: translate(-50%, -50%);
+  font-family: 'Sriracha', cursive;
+  z-index: 2;
+}
+
+.bg-image {
+  height: calc(100vh - 56px);
+  background-image: url("Todo.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  filter: blur(3px);
+}

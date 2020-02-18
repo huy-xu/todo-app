@@ -11,6 +11,7 @@ class NoteList extends Component {
   }
     
   render() { 
+    
     return (
       <div className="col">
         <div id="noteList" role="tablist" aria-multiselectable="true">
