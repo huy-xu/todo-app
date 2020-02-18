@@ -1,8 +1,9 @@
 import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import * as ROUTES from '../../constants/routes';
-import { connect } from 'react-redux'
-import { changeSignInState } from '../../redux/actions/changeSignInState';
+
+import { connect } from 'react-redux';
+import { signOut } from '../../redux/actions/auth';
 
 export class Navigation extends Component {
   render() {
@@ -11,10 +12,10 @@ export class Navigation extends Component {
         <Link to={ROUTES.HOME} className="navbar-brand">TODO</Link>
         <div className="collapse navbar-collapse justify-content-end" id="collapsibleNavId">
           <ul className="navbar-nav mt-2 mt-lg-0">
-            {this.props.isSignIn
-              ? <li className="nav-item active">
-                <Link to={ROUTES.LANDING} className="nav-link" onClick={() => this.props.signOut(this.props.isSignIn)}>Sign out</Link>
-              </li>
+            {this.props.authenticated
+              ? <li className="nav-item active" onClick={this.props.signOut}>
+                  <Link to={ROUTES.LANDING} className="nav-link">Sign out</Link>
+                </li>
               : <Fragment>
                 <li className="nav-item active">
                   <Link to={ROUTES.SIGN_IN} className="nav-link">Sign in</Link>
@@ -32,12 +33,12 @@ export class Navigation extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  isSignIn: state.navigation.isSignIn
+  authenticated: state.auth.authenticated
 })
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    signOut: (isSignIn) => dispatch(changeSignInState(isSignIn))
+    signOut: () => dispatch(signOut())
   }
 }
 

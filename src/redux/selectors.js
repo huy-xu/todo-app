@@ -1,3 +1,6 @@
+
+export const getIsSignedIn = (state) => state.auth.isSignedIn;
+
 export const getNoteList = (state) => state.noteList.noteList;
 
 export const getNoteIds = (state) => Object.keys(getNoteList(state));

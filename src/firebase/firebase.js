@@ -15,4 +15,5 @@ const firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
-export const database = firebase.database().ref('noteData/');
+export const database = firebase.database();
+export const firebaseAuth = firebase.auth();
