@@ -13,8 +13,8 @@ class HomePage extends Component {
     if (!this.props.authenticated) return <Redirect to={ROUTES.SIGN_IN} />
 
     return (
-      <div className="container mt-4 text-left">
-        <div className="row">
+      <div className="HomePage container mt-4 p-0 text-left">
+        <div className="row justify-content-center">
           <NoteList />
           <AddNoteForm />
         </div>

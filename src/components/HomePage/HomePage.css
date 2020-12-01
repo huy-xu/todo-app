@@ -1,8 +1,9 @@
+.HomePage {
+  border: 5px red;
+  height: 500px;
+}
+
 .row {
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
   margin-right: -50px;
   margin-left: -50px;
 }
